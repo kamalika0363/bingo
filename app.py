@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import json
 
 app = Flask(__name__)
-
+print("sdsdgds")
 
 def fetch_dt():
     load_dotenv()
@@ -20,15 +20,16 @@ def fetch_dt():
 def plot_dt(data_list):
     dates = [data["date"] for data in data_list]
     amounts = [data["amount"] for data in data_list]
-
-    plt.figure(figsize=(10, 6))
-    plt.scatter(dates, amounts, marker="o", color="b")  # Scatter plot
-    plt.title("Amount vs Date")
-    plt.xlabel("Date")
-    plt.ylabel("Amount")
-    plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
-    plt.tight_layout()
-    plt.show()
+    return json.dumps({"dates": dates, "amounts": amounts})
+    
+    # plt.figure(figsize=(10, 6))
+    # plt.scatter(dates, amounts, marker="o", color="b")  # Scatter plot
+    # plt.title("Amount vs Date")
+    # plt.xlabel("Date")
+    # plt.ylabel("Amount")
+    # plt.xticks(rotation=45)  # Rotate x-axis labels for better readability
+    # plt.tight_layout()
+    # plt.show()
 
 def plot_dt(data_list):
     dates = [data["date"] for data in data_list]
@@ -44,14 +45,16 @@ def some_function():
     data_list = fetch_dt()
     plot_dt(data_list)
 
-some_function()
-
     
 
 
 @app.route('/')
-def index():
-    return render_template('index.html')
+def index_page():
+    print("yolo yolo toloo")
+    data = plot_dt(fetch_dt())
+    print(data)
+    return render_template('index.html',data=data)
 
 if __name__ == '__main__':
+    print("aaaaaa")
     app.run(debug=True)

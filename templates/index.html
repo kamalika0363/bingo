@@ -9,25 +9,26 @@
     <script>
         var ctx = document.getElementById('myChart').getContext('2d');
 
+        // Function to generate random data points
         function generateRandomData(numPoints) {
             var data = [];
             for (var i =  0; i < numPoints; i++) {
-                var y = Math.random() *  30 -  10;
+                var y = Math.random() *  30;
                 data.push(y);
             }
             return data;
         }
 
         var myChart = new Chart(ctx, {
-            type: 'line', 
+            type: 'line', // Changed to line chart
             data: {
-                labels: Array.from({length:  10}, (_, i) => i +  1), 
+                labels: Array.from({length:  30}, (_, i) => i +  1), // Generate labels for the x-axis
                 datasets: [{
                     label: 'Line Dataset',
-                    data: generateRandomData(100),
-                    fill: false,
-                    borderColor: 'rgb(75,  192,  192)',
-                    tension:  0.1
+                    data: generateRandomData(30),  
+                    fill: false, // Optional: Don't fill the area under the line
+                    borderColor: 'rgb(75,  192,  192)', // Line color
+                    tension:  0.1 // Optional: Bezier curve tension of the line
                 }]
             },
             options: {
