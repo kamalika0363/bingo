@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie Chart Example</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+
+    <div class="text-center mt-8">
+        <h1 class="text-2xl font-bold mb-4">Expenses Distribution</h1>
+        <canvas id="expensesPieChart"></canvas>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('expensesPieChart').getContext('2d');
+        var expensesPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Rent', 'Groceries', 'Utilities', 'Entertainment'],
+                datasets: [{
+                    label: 'Expenses',
+                    data: [500, 300, 100, 200],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Expenses by Category'
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
