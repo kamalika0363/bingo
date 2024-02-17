@@ -10,8 +10,10 @@ global TOKEN
 load_dotenv()
 TOKEN = os.environ.get("BOT_TOKEN")
 
+
 async def hello(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f'Hello {update.effective_user.first_name}')
+
 
 # async def conn(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 #     await update.message.reply_text(f'Hello {update.effective_user.first_name}')
