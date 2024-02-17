@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import json
 
 
-def fetch():
+def fetch_dt():
     load_dotenv()
     url = os.environ.get("SUPABASE_URL")
     key = os.environ.get("SUPABASE_KEY")
@@ -15,7 +15,17 @@ def fetch():
     return data_dict
 
 
-def plot(data_list):
+def fetch_cat():
+    load_dotenv()
+    url = os.environ.get("SUPABASE_URL")
+    key = os.environ.get("SUPABASE_KEY")
+    supabase = create_client(url, key)
+    response = supabase.table("expense").select("amount", "category").execute()
+    data_cat = response.data
+    return data_cat
+
+
+def plot_dt(data_list):
     dates = [data["date"] for data in data_list]
     amounts = [data["amount"] for data in data_list]
 
@@ -29,5 +39,28 @@ def plot(data_list):
     plt.show()
 
 
-data_list = fetch()
-plot(data_list)
+def plot_cat(data_pie):
+    category_amounts = {}
+
+    for entry in data_pie:
+        category = entry["category"]
+        amount = entry["amount"]
+        category_amounts[category] = category_amounts.get(category, 0) + amount
+
+    # Prepare data for pie plot
+    categories = list(category_amounts.keys())
+    amounts = list(category_amounts.values())
+
+    # Plotting the pie plot
+    plt.figure(figsize=(8, 8))
+    plt.pie(amounts, labels=categories, autopct="%1.1f%%", startangle=140)
+    plt.title("Distribution of Expenses by Category")
+    plt.axis("equal")  # Equal aspect ratio ensures that pie is drawn as a circle.
+    plt.show()
+
+
+data_list = fetch_dt()
+plot_dt(data_list)
+
+data_pie = fetch_cat()
+plot_cat(data_pie)
